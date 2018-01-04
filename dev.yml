@@ -1,0 +1,43 @@
+version: '3.4'
+services:
+  postgres:
+    image: postgres
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq
+  django:
+    build:
+      context: .
+      dockerfile: .docker/django/Dockerfile
+      args:
+        - DJANGO_ENV=dev
+    command: python src/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+      - static:/static
+      - media:/media
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgres
+      - rabbitmq
+    env_file: ./envs/.env.local
+  celery:
+    depends_on:
+      - postgres
+      - django
+      - rabbitmq
+    command: celery -A myblog worker -l debug
+    volumes:
+      - .:/code
+      - media:/media
+volumes:
+  pg-data:
+    driver: local
+  static:
+    driver: local
+  media:
+    driver: local
