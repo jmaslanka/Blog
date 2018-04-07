@@ -32,12 +32,19 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_extensions',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+
+    'cachalot',
 
     'blog',
 ]
@@ -74,6 +81,22 @@ DATABASES = {
         default='postgres://postgres:postgres@postgres:5432/postgres',
     )
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': 'memcached:11211',
+    }
+}
+CACHALOT_ENABLED = env.bool('CACHALOT_ENABLED', default=False)
+CACHALOT_TIMEOUT = env('CACHALOT_TIMEOUT', default=60 * 15)
+CACHALOT_DATABASES = ['default']
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',

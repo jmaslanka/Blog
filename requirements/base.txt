@@ -1,6 +1,9 @@
-Django>=2.0,<2.1
-django-environ
-uwsgi
-psycopg2
 argon2-cffi
+django-cachalot
+django-environ
+Django>=1.11,<2.0
+psycopg2-binary
+pylibmc
 requests
+uwsgi
+django-allauth

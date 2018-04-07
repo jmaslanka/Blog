@@ -1,6 +1,6 @@
 # Personal Blog
 
-### Django 2.0 and Python 3.7
+### Django 1.11 and Python 3.6
 
 #### Development focuses on:
 - security

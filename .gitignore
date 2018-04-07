@@ -1,6 +1,6 @@
 __pycache__
 *.py[cod]
-settings/local.py
+src/blog/settings/local.py
 .env
 /media
 /static

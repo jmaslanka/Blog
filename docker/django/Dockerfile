@@ -1,10 +1,16 @@
-FROM python:3.7.0b3
+FROM python:3.6
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH $PYTHONPATH:src
 ARG DJANGO_ENV
 
 RUN apt update
+RUN apt install -y \
+    libmemcached-dev \
+    zlib1g-dev \
+    libssl-dev \
+    python-dev \
+    build-essential
 
 WORKDIR /code
 

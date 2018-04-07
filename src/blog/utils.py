@@ -27,9 +27,7 @@ class ComplexityValidator:
             checks += 1 if validator.search(password) else 0
 
         if checks < 3:
-            raise ValidationError(
-                self.get_help_text()
-            )
+            raise ValidationError(self.get_help_text())
 
     def get_help_text(self):
         return _(
