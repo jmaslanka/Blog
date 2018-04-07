@@ -6,33 +6,37 @@ services:
       - PGDATA=/var/lib/postgresql/data
     volumes:
       - pg-data:/var/lib/postgresql/data
-  rabbitmq:
-    image: rabbitmq
   django:
     build:
       context: .
-      dockerfile: .docker/django/Dockerfile
+      dockerfile: ./docker/django/Dockerfile
       args:
-        - DJANGO_ENV=dev
-    command: python src/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-      - static:/static
-      - media:/media
+        DJANGO_ENV: dev
+    image: blog_django
     ports:
       - '8000:8000'
     depends_on:
       - postgres
-      - rabbitmq
-    env_file: ./envs/.env.local
-  celery:
+    command: python src/manage.py runserver_plus 0.0.0.0:8000
+    volumes:
+      - .:/code
+      - static:/static
+      - media:/media
+  bootstrap:
+    image: blog_django
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 20s
     depends_on:
       - postgres
       - django
-      - rabbitmq
-    command: celery -A myblog worker -l debug
+    command: python src/manage.py bootstrap
     volumes:
       - .:/code
+      - static:/static
       - media:/media
 volumes:
   pg-data:

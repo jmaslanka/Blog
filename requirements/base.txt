@@ -1,0 +1,6 @@
+Django>=2.0,<2.1
+django-environ
+uwsgi
+psycopg2
+argon2-cffi
+requests
