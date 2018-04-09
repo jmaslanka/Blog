@@ -5,10 +5,13 @@ from django.conf.urls import (
     include,
 )
 
+import articles.urls
+
 
 urlpatterns = [
-    url('^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^', include(articles.urls)),
 ]
 
 if settings.DEBUG:
