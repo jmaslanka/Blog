@@ -28,7 +28,7 @@ services:
       - '11211:11211'
     entrypoint:
       - memcached
-      - -m 92
+      - -m 128
   bootstrap:
     image: blog_django
     deploy:

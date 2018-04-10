@@ -3,6 +3,9 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from ckeditor_uploader.fields import RichTextUploadingField
+from stdimage.models import StdImageField
+from stdimage.utils import UploadToUUID
 from taggit.managers import TaggableManager
 
 
@@ -25,12 +28,9 @@ class Article(models.Model):
     )
     author = models.ForeignKey(
         get_user_model(),
-        on_delete=models.CASCASE,
+        on_delete=models.CASCADE,
         verbose_name=_('author'),
         related_name='articles',
-    )
-    content = models.TextField(
-        _('content'),
     )
     is_public = models.BooleanField(
         _('is public'),
@@ -38,7 +38,22 @@ class Article(models.Model):
     )
     publication_date = models.DateTimeField(
         _('publication date'),
+        blank=True,
+        null=True,
     )
+
+    image = StdImageField(
+        upload_to=UploadToUUID(path='articles'),
+        variations={
+            'cover': (720, 480),
+        },
+        blank=True,
+    )
+    description = models.TextField(
+        _('description'),
+        max_length=255,
+    )
+    content = RichTextUploadingField()
 
     created = models.DateTimeField(
         _('created'),
@@ -57,4 +72,4 @@ class Article(models.Model):
         verbose_name_plural = _('articles')
 
     def __str__(self):
-        return self.title[:50]
+        return self.description[:50]

@@ -1,6 +1,7 @@
 import re
 import string
 import requests
+import uuid
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -57,3 +58,7 @@ class HaveIBeenPwnedValidator:
 
     def get_help_text(self):
         return _('Password must not be on hacked passwords list.')
+
+
+def generate_filename(filename):
+    return f'{uuid.uuid4().hex}.{filename}'

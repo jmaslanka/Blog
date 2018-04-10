@@ -22,4 +22,6 @@ DEBUG_TOOLBAR_PANELS = [
     'cachalot.panels.CachalotPanel',
 ]
 
+# TEMPLATES[0]['OPTIONS']['debug'] = False
+
 AUTH_PASSWORD_VALIDATORS = list()

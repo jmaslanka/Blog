@@ -4,9 +4,6 @@ from .models import Article
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    prepopulated_fields = {
-        'slug': ('title',)
-    }
     list_display = (
         'title',
         'slug',
@@ -18,6 +15,27 @@ class ArticleAdmin(admin.ModelAdmin):
     list_editable = (
         'is_public',
     )
+    list_filter = (
+        'is_public',
+        'author',
+    )
+    readonly_fields = (
+        'created',
+        'modified',
+    )
+    raw_id_fields = (
+        'author',
+    )
+    prepopulated_fields = {
+        'slug': ('title',)
+    }
+    search_fields = (
+        'title',
+        'author__name',
+        'author__email',
+        'tags__name',
+    )
+    save_on_top = True
 
     fieldsets = (
         (None, {
@@ -31,11 +49,13 @@ class ArticleAdmin(admin.ModelAdmin):
         }),
         ('Content', {
             'fields': (
+                'image',
+                'description',
                 'content',
                 'tags',
             )
         }),
-        (None, {
+        ('Other', {
             'fields': (
                 'created',
                 'modified',
@@ -44,9 +64,9 @@ class ArticleAdmin(admin.ModelAdmin):
     )
 
     def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related(
-            'tags',
-        )
+        return super().get_queryset(request) \
+            .select_related('author') \
+            .prefetch_related('tags')
 
     def tags_list(self, obj):
         return ', '.join(tag.name for tag in obj.tags.all()[:3])

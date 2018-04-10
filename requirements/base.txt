@@ -1,9 +1,12 @@
 argon2-cffi
 django-allauth
 django-cachalot
+django-ckeditor
 django-environ
+django-stdimage
 django-taggit
 Django>=1.11,<2.0
+Pillow
 psycopg2-binary
 pylibmc
 requests

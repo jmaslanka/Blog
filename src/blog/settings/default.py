@@ -46,19 +46,28 @@ INSTALLED_APPS = [
 
     'cachalot',
     'taggit',
+    'ckeditor',
+    'ckeditor_uploader',
+    'stdimage',
 
     'blog',
+    'articles',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
+
 
 TEMPLATES = [
     {
@@ -82,6 +91,8 @@ DATABASES = {
         default='postgres://postgres:postgres@postgres:5432/postgres',
     )
 }
+DATABASES['default']['ATOMIC_REQUESTS'] = True
+
 
 CACHES = {
     'default': {
@@ -92,6 +103,8 @@ CACHES = {
 CACHALOT_ENABLED = env.bool('CACHALOT_ENABLED', default=False)
 CACHALOT_TIMEOUT = env('CACHALOT_TIMEOUT', default=60 * 15)
 CACHALOT_DATABASES = ['default']
+CACHE_MIDDLEWARE_SECONDS = 60 * 15
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 
 AUTHENTICATION_BACKENDS = [
@@ -118,16 +131,26 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+
 STATIC_URL = env('STATIC_URL', default='/static/')
 STATIC_ROOT = env('STATIC_ROOT', default=(root - 2)('_static'))
 MEDIA_URL = env('MEDIA_URL', default='/media/')
+
 MEDIA_ROOT = env('MEDIA_ROOT', default=(root - 2)('_media'))
+CKEDITOR_UPLOAD_PATH = env('CKEDITOR_UPLOAD_PATH', default='uploads/')
+CKEDITOR_FILENAME_GENERATOR = 'utils.generate_filename'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_RESTRICT_BY_DATE = True
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+
 
 EMAIL_BACKEND = env(
     'EMAIL_BACKEND',
