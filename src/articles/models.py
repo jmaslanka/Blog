@@ -55,6 +55,11 @@ class Article(models.Model):
     )
     content = RichTextUploadingField()
 
+    views_count = models.PositiveSmallIntegerField(
+        _('views count'),
+        default=0,
+        editable=True,
+    )
     created = models.DateTimeField(
         _('created'),
         auto_now_add=True,

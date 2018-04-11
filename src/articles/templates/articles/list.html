@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for article in articles %}
+    <article class="entry">
+
+      <header class="entry-header">
+
+        <h2 class="entry-title">
+          <a href="{% url "" slug=article.slug %}" title="">{{ article.title }}</a>
+        </h2>          
+      
+        <div class="entry-meta">
+          <ul>
+            <li>{{ article.publication_date }}</li>
+            <span class="meta-sep">&bull;</span>                
+            <li><a href="#" title="" rel="category tag">{{ article.tags }}</a></li>
+            <span class="meta-sep">&bull;</span>
+            <li>{{ article.author }}</li>
+          </ul>
+        </div> 
+       
+      </header> 
+      
+      <div class="entry-content-media">
+        <div class="post-thumb">
+          <img src="{{ article.image.cover.url }}">
+        </div> 
+      </div>
+
+      <div class="entry-content">
+        <p>{{ article.description }}</p>
+      </div> 
+
+    </article>
+  {% empty %}
+    <h1>No articles, 404 I guess?</h1>
+  {% endfor %}
+
+{% endblock %}

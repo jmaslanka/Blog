@@ -6,10 +6,9 @@ from .models import Article
 class ArticleAdmin(admin.ModelAdmin):
     list_display = (
         'title',
-        'slug',
-        'author',
         'publication_date',
         'is_public',
+        'views_count',
         'tags_list',
     )
     list_editable = (
@@ -17,9 +16,9 @@ class ArticleAdmin(admin.ModelAdmin):
     )
     list_filter = (
         'is_public',
-        'author',
     )
     readonly_fields = (
+        'views_count',
         'created',
         'modified',
     )
@@ -55,8 +54,9 @@ class ArticleAdmin(admin.ModelAdmin):
                 'tags',
             )
         }),
-        ('Other', {
+        ('Informations', {
             'fields': (
+                'views_count',
                 'created',
                 'modified',
             )

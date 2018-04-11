@@ -91,7 +91,6 @@ DATABASES = {
         default='postgres://postgres:postgres@postgres:5432/postgres',
     )
 }
-DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
 CACHES = {
