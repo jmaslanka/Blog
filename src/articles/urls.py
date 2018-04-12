@@ -1,7 +1,20 @@
-from django.conf.urls import (
-    url,
-    include,
+from django.conf.urls import url
+
+from .views import (
+    ArticleListView,
+    ArticleDetailView,
 )
 
 
-urlpatterns = []
+urlpatterns = [
+    url(
+        r'^$',
+        ArticleListView.as_view(),
+        name='list'
+    ),
+    url(
+        r'^article/(?P<slug>[\w-]+)',
+        ArticleDetailView.as_view(),
+        name='details'
+    ),
+]

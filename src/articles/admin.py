@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from .models import Article
+from .models import (
+    Article,
+    Category,
+)
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -9,7 +12,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'publication_date',
         'is_public',
         'views_count',
-        'tags_list',
+        'category',
     )
     list_editable = (
         'is_public',
@@ -32,6 +35,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'title',
         'author__name',
         'author__email',
+        'category__name',
         'tags__name',
     )
     save_on_top = True
@@ -41,6 +45,7 @@ class ArticleAdmin(admin.ModelAdmin):
             'fields': (
                 'title',
                 'slug',
+                'category',
                 'author',
                 'is_public',
                 'publication_date',
@@ -65,11 +70,9 @@ class ArticleAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         return super().get_queryset(request) \
-            .select_related('author') \
+            .select_related('author', 'category') \
             .prefetch_related('tags')
-
-    def tags_list(self, obj):
-        return ', '.join(tag.name for tag in obj.tags.all()[:3])
 
 
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(Category)

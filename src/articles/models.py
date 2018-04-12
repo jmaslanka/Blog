@@ -9,6 +9,21 @@ from stdimage.utils import UploadToUUID
 from taggit.managers import TaggableManager
 
 
+class Category(models.Model):
+    name = models.CharField(
+        _('name'),
+        max_length=32,
+        unique=True,
+    )
+
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.name
+
+
 class PublishedArticleManager(models.Manager):
     def ger_queryset(self):
         return super().get_queryset().filter(
@@ -41,11 +56,16 @@ class Article(models.Model):
         blank=True,
         null=True,
     )
+    category = models.ForeignKey(
+        Category,
+        verbose_name=_('category'),
+        related_name='articles',
+    )
 
     image = StdImageField(
         upload_to=UploadToUUID(path='articles'),
         variations={
-            'cover': (720, 480),
+            'cover': (620, 412),
         },
         blank=True,
     )
@@ -69,6 +89,7 @@ class Article(models.Model):
         auto_now=True,
     )
 
+    objects = models.Manager()
     tags = TaggableManager()
     published = PublishedArticleManager()
 
@@ -77,4 +98,4 @@ class Article(models.Model):
         verbose_name_plural = _('articles')
 
     def __str__(self):
-        return self.description[:50]
+        return self.title

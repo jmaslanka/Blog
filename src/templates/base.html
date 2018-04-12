@@ -151,7 +151,7 @@
         </div>
 
         <div class="widget widget_popular">
-           <h3>Popular Post.</h3>
+           <h3>Popular Posts.</h3>
 
            <ul class="link-list">
               <li><a href="#">Sint cillum consectetur voluptate.</a></li>
@@ -202,14 +202,7 @@
             <h3>Photostream</h3>
             
             <ul class="photostream group">
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-               <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+               <li><a href="#"><img alt="thumbnail"></a></li>
             </ul>           
 
          </div>
@@ -219,9 +212,7 @@
 
             <ul class="navigate group">
                <li><a href="#">Home</a></li>
-               <li><a href="#">Blog</a></li>
-               <li><a href="#">Demo</a></li>
-               <li><a href="#">Archives</a></li>
+               <li><a href="#">Contact</a></li>
                <li><a href="#">About</a></li>
             </ul>
          </div>
@@ -235,9 +226,9 @@
    </footer>
 
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
-   <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>  
-   <script src="js/main.js"></script>
+   <script>window.jQuery || document.write('<script src="{% static "js/jquery-1.10.2.min.js" %}"><\/script>')</script>
+   <script type="text/javascript" src="{% static "js/jquery-migrate-1.2.1.min.js" %}"></script>  
+   <script src="{% static "js/main.js" %}"></script>
 
 </body>
 

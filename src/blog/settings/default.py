@@ -139,14 +139,13 @@ USE_TZ = True
 
 
 STATIC_URL = env('STATIC_URL', default='/static/')
-STATIC_ROOT = env('STATIC_ROOT', default=(root - 2)('_static'))
+STATIC_ROOT = env('STATIC_ROOT', default=(root - 2)('static'))
 MEDIA_URL = env('MEDIA_URL', default='/media/')
+MEDIA_ROOT = env('MEDIA_ROOT', default=(root - 2)('media'))
 
-MEDIA_ROOT = env('MEDIA_ROOT', default=(root - 2)('_media'))
 CKEDITOR_UPLOAD_PATH = env('CKEDITOR_UPLOAD_PATH', default='uploads/')
-CKEDITOR_FILENAME_GENERATOR = 'utils.generate_filename'
+CKEDITOR_FILENAME_GENERATOR = 'blog.utils.generate_filename'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
-CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_RESTRICT_BY_DATE = True
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
