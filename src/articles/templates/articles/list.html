@@ -12,7 +12,7 @@
       
         <div class="entry-meta">
           <ul>
-            <li>{{ article.publication_date }}</li>
+            <li>{{ article.publication_date|date:"j N Y" }}</li>
             <span class="meta-sep">&bull;</span>                
             <li><a href="#" title="" rel="category tag">{{ article.category }}</a></li>
             <span class="meta-sep">&bull;</span>
@@ -40,45 +40,31 @@
 
     </article>
   {% empty %}
-    <h1>No articles, 404 I guess?</h1>
+    <h1>No articles found.</h1>
   {% endfor %}
 
-  <div>
-
-    <nav class="pagination add-bottom">
-
-      <span class="page-numbers prev inactive">Prev</span>
-      <span class="page-numbers current">1</span>
-      <a href="#" class="page-numbers">2</a>
-       <a href="#" class="page-numbers">3</a>
-       <a href="#" class="page-numbers">4</a>
-       <a href="#" class="page-numbers">5</a>
-       <a href="#" class="page-numbers">6</a>
-       <a href="#" class="page-numbers">7</a>
-       <a href="#" class="page-numbers">8</a>
-       <a href="#" class="page-numbers">9</a>
-      <a href="#" class="page-numbers next">Next</a>
-
-    </nav>
-
-  </div>
-
-  <!--
-  <div class="pagination">
+  <div class="pagination add-bottom">
     <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-numbers prev">Prev</a>
+      {% else %}
+        <span class="page-numbers prev inactive">Prev</span>
+      {% endif %}
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-        {% endif %}
+      {% for page in page_obj.paginator.page_range %}
+        <a href="?page={{ page_obj.number }}" class="page-numbers {%if page_obj.number == page%}current{%endif%}">
+          {{ page_obj.number }}
+        </a>
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-numbers next">Next</a>
+      {% else %}
+        <span class="page-numbers next inactive">Next</a>
+      {% endif %}
+
     </span>
   </div>
-  -->
 
 {% endblock %}

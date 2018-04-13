@@ -1,5 +1,4 @@
 argon2-cffi
-django-allauth
 django-cachalot
 django-ckeditor
 django-environ

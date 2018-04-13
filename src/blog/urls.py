@@ -12,7 +12,6 @@ import articles.urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('allauth.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^', include(articles.urls, namespace='article')),
 ]
