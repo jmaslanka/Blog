@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <article class="entry">
+
+    <header class="entry-header">
+
+      <h2 class="entry-title">
+        {{ article.title }}
+      </h2>          
+
+      <div class="entry-meta">
+        <ul>
+          <li>{{ article.publication_date|date:"j N Y" }}</li>
+          <span class="meta-sep">&bull;</span>              
+          <li>
+            <a href="#" title="" rel="category tag">{{ article.category }}</a>
+          </li>
+          <span class="meta-sep">&bull;</span>
+          <li>{{ article.author }}</li>
+        </ul>
+      </div> 
+   
+    </header> 
+
+    <div class="entry-content-media">
+      <div class="post-thumb">
+        <img src="{{ article.image.cover.url }}">
+      </div> 
+    </div>
+
+    <div class="entry-content">
+      {{ article.content|safe }}
+    </div>
+
+    <p class="tags">
+      <span>Tagged in </span>:
+      {% for tag in article.tags.all %}
+        <a href="#">{{ tag }}</a>{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    </p> 
+
+    <ul class="post-nav group">
+      <li class="prev"><a rel="prev" href="#"><strong>Previous Article</strong> Duis Sed Odio Sit Amet Nibh Vulputate</a></li>
+      <li class="next"><a rel="next" href="#"><strong>Next Article</strong> Morbi Elit Consequat Ipsum</a></li>
+    </ul>
+
+  </article>
+  
+  <div class="fb-comments" data-href="http://localhost:8000/" data-width="666" data-numposts="5"></div>
+{% endblock %}

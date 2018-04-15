@@ -3,10 +3,10 @@ django-cachalot
 django-ckeditor
 django-environ
 django-stdimage
+django-redis
 django-taggit
 Django>=1.11,<2.0
 Pillow
-psycopg2-binary
-pylibmc
+psycopg2
 requests
 uwsgi

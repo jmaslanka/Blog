@@ -88,10 +88,9 @@ DATABASES = {
 
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': 'memcached:11211',
-    }
+    'default': env.cache(
+        default='redis://redis:6379/1?client_class=django_redis.client.DefaultClient',
+    ),
 }
 CACHALOT_ENABLED = env.bool('CACHALOT_ENABLED', default=False)
 CACHALOT_TIMEOUT = env('CACHALOT_TIMEOUT', default=60 * 15)
