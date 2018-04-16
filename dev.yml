@@ -8,7 +8,7 @@ services:
       - pg-data:/var/lib/postgresql/data
   redis:
     image: redis:alpine
-    command: [sh, -c, "echo 'maxmemory 92mb' >> redis.conf && redis-server redis.conf"]
+    command: [sh, -c, "echo 'maxmemory 396mb' >> redis.conf && redis-server redis.conf"]
   django:
     build:
       context: .

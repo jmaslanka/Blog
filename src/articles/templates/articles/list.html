@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load base %}
+
 {% block content %}
   {% for article in articles %}
     <article class="entry">
@@ -34,7 +36,7 @@
 
       <div class="entry-meta">
         <ul>       
-          <li>Tags: <a href="#" title="" rel="category tag">{{ article.tags.all|join:", " }}</a></li>
+          <li>Tags: <span title="" rel="category tag">{{ article.tags.all|join:", " }}</span></li>
         </ul>
       </div> 
 
@@ -52,9 +54,9 @@
         <span class="page-numbers prev inactive">Prev</span>
       {% endif %}
 
-      {% for page in page_obj.paginator.page_range %}
-        <a href="?page={{ page_obj.number }}" class="page-numbers {%if page_obj.number == page%}current{%endif%}">
-          {{ page_obj.number }}
+      {% for page in page_obj.paginator.page_range|pagination_range:page_obj.number %}
+        <a href="?page={{ page }}" class="page-numbers {%if page_obj.number == page%}current{%endif%}">
+          {{ page }}
         </a>
       {% endfor %}
 

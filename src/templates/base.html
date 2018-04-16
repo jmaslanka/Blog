@@ -45,7 +45,6 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   </script>
-  <!-- <div class="fb-comments" data-href="http://localhost:8000/" data-width="666" data-numposts="5"></div> -->
 
   <header id="top">
 
@@ -157,7 +156,12 @@
 
            <ul class="link-list">
             {% for post in popular_posts %}
-              <li><a href="#">{{ post.title }}</a></li>
+              <li>
+                <a href="{% url 'article:details' slug=post.slug %}">
+                  <img src="{{ post.image.cover.url }}">
+                  {{ post.title }}
+                </a>
+              </li>
             {% endfor %}     
            </ul>
               

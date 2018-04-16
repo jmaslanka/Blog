@@ -39,6 +39,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'tags__name',
     )
     save_on_top = True
+    list_per_page = 10
 
     fieldsets = (
         (None, {
