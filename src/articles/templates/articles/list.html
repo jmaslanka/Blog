@@ -3,6 +3,12 @@
 {% load base %}
 
 {% block content %}
+  {% if list_title %}
+    <div class="list-title">
+      <h1 class="text-center">{{ list_title }}</h1>
+    </div>
+  {% endif %}
+
   {% for article in articles %}
     <article class="entry">
 
@@ -42,7 +48,7 @@
 
     </article>
   {% empty %}
-    <h1>No articles found.</h1>
+    <h1 class="text-center">No articles found.</h1>
   {% endfor %}
 
   <div class="pagination add-bottom">

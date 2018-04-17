@@ -65,7 +65,7 @@
       <div class="row">   
         <ul id="nav" class="nav">
 
-          <li><a href="index.html">Home</a></li>
+          <li><a href="{% url 'article:list' %}">Home</a></li>
 
           <li class="has-children">
             <a href="#">Dropdown</a>
@@ -113,13 +113,21 @@
 
         <div class="widget widget_search">
           <h3>Search</h3> 
-          <form action="#">
+          <form action="{% url 'article:list' %}" method="GET">
 
-             <input type="text" value="Search here..." onblur="if(this.value == '') { this.value = 'Search articles...'; }"
-                    onfocus="if (this.value == 'Search here...') { this.value = ''; }" class="text-search">
+             <input value="Search here..." onblur="if(this.value == '') { this.value = 'Search articles...'; }"
+                    onfocus="if (this.value == 'Search here...') { this.value = ''; }"
+                    class="text-search" type="text" name="q">
              <input type="submit" value="" class="submit-search">
 
           </form>
+        </div>
+
+        <div class="widget widget_text group">
+          <img src="{% static 'images/profile_photo.png' %}" alt="profile photo" class="text-center">
+
+          <p>Hello there, my name is Jacob. I'm 21 old guy from Poland and I currently work for <a href="https://www.facebook.com/worldofmerix/">Merixstudio</a> as a Django Developer.</p>
+
         </div>
 
         <div class="widget widget_categories group">
@@ -132,19 +140,13 @@
           </ul>
         </div>
 
-        <div class="widget widget_text group">
-          <h3>Widget Text.</h3>
-
-          <p>Lorem ipsum Ullamco commodo laboris sit dolore commodo aliquip incididunt fugiat esse dolor aute fugiat minim eiusmod do velit labore fugiat officia ad sit culpa labore in consectetur sint cillum sint consectetur voluptate adipisicing Duis irure magna ut sit amet reprehenderit.</p>
-
-        </div>
 
         <div class="widget widget_tags">
           <h3>Post Tags.</h3>
 
           <div class="tagcloud group">
             {% for tag in popular_tags %}
-              <a href="#">{{ tag.name }}</a>
+              <a href="{% url 'article:by_tag' slug=tag.slug %}">{{ tag.name }}</a>
             {% endfor %}
             <a href="#">See all...</a>
           </div>
@@ -179,13 +181,9 @@
 
         <div class="twelve columns">  
           <ul class="social-links">
-           <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-           <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-           <li><a href="#"><i class="fa fa-google-plus"></i></a></li>               
-           <li><a href="#"><i class="fa fa-github-square"></i></a></li>
-           <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-           <li><a href="#"><i class="fa fa-flickr"></i></a></li>               
-           <li><a href="#"><i class="fa fa-skype"></i></a></li>
+           <li><a href="https://www.facebook.com/jakub.maslanka0"><i class="fa fa-facebook"></i></a></li>           
+           <li><a href="https://github.com/jmaslanka"><i class="fa fa-github-square"></i></a></li>        
+           <li><a href="skype:ocean.spokojny@op.pl?userinfo"><i class="fa fa-skype"></i></a></li>
           </ul>     
         </div>
         
@@ -207,7 +205,7 @@
           <h3 class="social">Navigate</h3>
 
           <ul class="navigate group">
-             <li><a href="/">Home</a></li>
+             <li><a href="{% url 'article:list' %}">Home</a></li>
              <li><a href="#">Contact</a></li>
              <li><a href="#">About</a></li>
           </ul>

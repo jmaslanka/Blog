@@ -36,7 +36,7 @@
     <p class="tags">
       <span>Tagged in </span>:
       {% for tag in article.tags.all %}
-        <a href="#">{{ tag }}</a>{% if not forloop.last %},{% endif %}
+        <a href="{% url 'article:by_tag' slug=tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
       {% endfor %}
     </p> 
 

@@ -247,6 +247,11 @@ ul#nav ul li a {
 /* c. Content
 --------------------------------------------------------------------- */
 
+.list-title {
+   border-bottom: 1px dashed #E8E8E8;
+   margin-bottom: 18px;
+}
+
 #content-wrap {
 	background: #fff;
 	padding: 42px 0 36px 0;
