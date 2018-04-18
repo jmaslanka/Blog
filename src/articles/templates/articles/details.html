@@ -14,7 +14,7 @@
           <li>{{ article.publication_date|date:"j N Y" }}</li>
           <span class="meta-sep">&bull;</span>              
           <li>
-            <a href="#" title="" rel="category tag">{{ article.category }}</a>
+            <a href="{% url 'article:by_category' slug=article.category.slug %}" rel="category tag">{{ article.category }}</a>
           </li>
           <span class="meta-sep">&bull;</span>
           <li>{{ article.author }}</li>
@@ -33,12 +33,16 @@
       {{ article.content|safe }}
     </div>
 
-    <p class="tags">
-      <span>Tagged in </span>:
-      {% for tag in article.tags.all %}
-        <a href="{% url 'article:by_tag' slug=tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
-      {% endfor %}
-    </p> 
+    {% with tags=article.tags.all %}
+      {% if tags %}
+        <p class="tags">
+          <span>Tagged in </span>:
+          {% for tag in tags %}
+            <a href="{% url 'article:by_tag' slug=tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
+          {% endfor %}
+        </p>
+      {% endif %}
+    {% endwith %}
 
     <ul class="post-nav group">
       <li class="prev"><a rel="prev" href="#"><strong>Previous Article</strong> Duis Sed Odio Sit Amet Nibh Vulputate</a></li>

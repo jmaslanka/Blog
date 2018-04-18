@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -22,6 +24,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    @cached_property
+    def slug(self):
+        return slugify(self.name)
 
 
 class PublishedArticleManager(models.Manager):
@@ -65,7 +71,7 @@ class Article(models.Model):
     image = StdImageField(
         upload_to=UploadToUUID(path='articles'),
         variations={
-            'cover': (620, 412),
+            'cover': (742, 422),
         },
         blank=True,
     )

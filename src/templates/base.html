@@ -128,13 +128,19 @@
 
           <p>Hello there, my name is Jacob. I'm 21 old guy from Poland and I currently work for <a href="https://www.facebook.com/worldofmerix/">Merixstudio</a> as a Django Developer.</p>
 
+          <ul class="social-links">
+             <li><a href="https://www.facebook.com/jakub.maslanka0"><i class="fa fa-facebook"></i></a></li>           
+             <li><a href="https://github.com/jmaslanka"><i class="fa fa-github-square"></i></a></li>        
+             <li><a href="skype:jacob.maslanka@protonmail.com?userinfo"><i class="fa fa-skype"></i></a></li>
+          </ul>  
+
         </div>
 
         <div class="widget widget_categories group">
           <h3>Categories.</h3> 
           <ul>
             {% for category in categories %}
-              <li><a href="#" title="{{ category.name }}">{{ category.name }}</a></li>   
+              <li><a href="{% url 'article:by_category' slug=category.slug %}">{{ category.name }}</a></li>   
             {% endfor %}
             <li><a href="#" title="">See all categories</a></li>   
           </ul>
@@ -177,15 +183,7 @@
 
    <footer>
 
-      <div class="row"> 
-
-        <div class="twelve columns">  
-          <ul class="social-links">
-           <li><a href="https://www.facebook.com/jakub.maslanka0"><i class="fa fa-facebook"></i></a></li>           
-           <li><a href="https://github.com/jmaslanka"><i class="fa fa-github-square"></i></a></li>        
-           <li><a href="skype:ocean.spokojny@op.pl?userinfo"><i class="fa fa-skype"></i></a></li>
-          </ul>     
-        </div>
+      <div class="row">
         
        <div class="eight columns info">
 

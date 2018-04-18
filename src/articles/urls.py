@@ -3,7 +3,9 @@ from django.conf.urls import url
 from .views import (
     ArticleListView,
     ArticleDetailView,
+    CategoryArticleListView,
     TagArticleListView,
+    TagsCategoriesView,
 )
 
 
@@ -22,5 +24,15 @@ urlpatterns = [
         r'^tag/(?P<slug>[\w-]+)',
         TagArticleListView.as_view(),
         name='by_tag'
-    )
+    ),
+    url(
+        r'^category/(?P<slug>[\w-]+)',
+        CategoryArticleListView.as_view(),
+        name='by_category'
+    ),
+    url(
+        r'^tags-categories/$',
+        TagsCategoriesView.as_view(),
+        name='tags_categories_list'
+    ),
 ]

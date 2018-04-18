@@ -130,6 +130,7 @@ USE_L10N = True
 USE_TZ = True
 
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 STATIC_URL = env('STATIC_URL', default='/static/')
 STATIC_ROOT = env('STATIC_ROOT', default=(root - 2)('static'))
 MEDIA_URL = env('MEDIA_URL', default='/media/')

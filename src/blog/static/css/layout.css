@@ -642,12 +642,13 @@ footer ul li a:hover,
 footer ul li a:focus { color: #6C934D; }
 
 /* social links */
-footer .social-links {
-   margin: 18px auto 42px auto;
+/* Removed footer from the beggining */
+ul.social-links {
+   margin: 18px auto 26px auto;
    padding: 0;  
    text-align: center;
 }
-footer .social-links li {
+ul.social-links li {
    display: inline-block;
    font-size: 32px;
    line-height: 48px;
@@ -655,7 +656,12 @@ footer .social-links li {
    margin: 0 16px;
    color: #444; 
 }
-footer .social-links li:first-child { margin-left: 0; }
+.social-links li:first-child { margin-left: 0; }
+
+ul.social-links li a,
+ul.social-links li a:visited { color: #34393A; }
+ul.social-links li a:hover,
+ul.social-links li a:focus { color: #6C934D; }
 
 
 /* Photostream */

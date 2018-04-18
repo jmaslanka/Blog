@@ -22,7 +22,7 @@
           <ul>
             <li>{{ article.publication_date|date:"j N Y" }}</li>
             <span class="meta-sep">&bull;</span>                
-            <li><a href="#" title="" rel="category tag">{{ article.category }}</a></li>
+            <li><a href="{% url 'article:by_category' slug=article.category.slug %}" rel="category tag">{{ article.category }}</a></li>
             <span class="meta-sep">&bull;</span>
             <li>{{ article.author }}</li>
           </ul>
@@ -40,11 +40,15 @@
         <p>{{ article.description }}</p>
       </div> 
 
-      <div class="entry-meta">
-        <ul>       
-          <li>Tags: <span title="" rel="category tag">{{ article.tags.all|join:", " }}</span></li>
-        </ul>
-      </div> 
+      {% with tags=article.tags.all %}
+        {% if tags %}
+          <div class="entry-meta">
+            <ul>       
+              <li>Tags: <span title="" rel="category tag">{{ tags|join:", " }}</span></li>
+            </ul>
+          </div>
+        {% endif %}
+      {% endwith %}
 
     </article>
   {% empty %}
