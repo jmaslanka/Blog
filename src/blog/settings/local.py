@@ -23,6 +23,7 @@ DEBUG_TOOLBAR_PANELS = [
 ]
 
 # TEMPLATES[0]['OPTIONS']['debug'] = False
+# CACHALOT_ENABLED = False
 # CACHES = {'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}}
 
 AUTH_PASSWORD_VALIDATORS = list()

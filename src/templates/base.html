@@ -2,9 +2,9 @@
 
 {% load static base %}
 
-{% get_categories limit=5 as categories %}
-{% get_popular_tags limit=7 as popular_tags %}
-{% get_popular_posts limit=3 as popular_posts %}
+{% get_categories limit=5 as base_categories %}
+{% get_popular_tags limit=7 as base_popular_tags %}
+{% get_popular_posts limit=3 as base_popular_posts  %}
 
 <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
@@ -139,10 +139,10 @@
         <div class="widget widget_categories group">
           <h3>Categories.</h3> 
           <ul>
-            {% for category in categories %}
-              <li><a href="{% url 'article:by_category' slug=category.slug %}">{{ category.name }}</a></li>   
+            {% for category in base_categories %}
+              <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>   
             {% endfor %}
-            <li><a href="#" title="">See all categories</a></li>   
+            <li><a href="{% url 'article:tags_categories_list' %}" title="">See all categories</a></li>   
           </ul>
         </div>
 
@@ -151,10 +151,10 @@
           <h3>Post Tags.</h3>
 
           <div class="tagcloud group">
-            {% for tag in popular_tags %}
+            {% for tag in base_popular_tags %}
               <a href="{% url 'article:by_tag' slug=tag.slug %}">{{ tag.name }}</a>
             {% endfor %}
-            <a href="#">See all...</a>
+            <a href="{% url 'article:tags_categories_list' %}">See all tags</a>
           </div>
                   
         </div>
@@ -163,7 +163,7 @@
            <h3>Popular Posts.</h3>
 
            <ul class="link-list">
-            {% for post in popular_posts %}
+            {% for post in base_popular_posts  %}
               <li>
                 <a href="{% url 'article:details' slug=post.slug %}">
                   <img src="{{ post.image.cover.url }}">

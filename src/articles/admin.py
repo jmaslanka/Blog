@@ -33,7 +33,8 @@ class ArticleAdmin(admin.ModelAdmin):
     }
     search_fields = (
         'title',
-        'author__name',
+        'slug',
+        'author__first_name',
         'author__email',
         'category__name',
         'tags__name',

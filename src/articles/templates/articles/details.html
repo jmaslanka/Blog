@@ -14,7 +14,7 @@
           <li>{{ article.publication_date|date:"j N Y" }}</li>
           <span class="meta-sep">&bull;</span>              
           <li>
-            <a href="{% url 'article:by_category' slug=article.category.slug %}" rel="category tag">{{ article.category }}</a>
+            <a href="{{ article.category.get_absolute_url }}" rel="category tag">{{ article.category }}</a>
           </li>
           <span class="meta-sep">&bull;</span>
           <li>{{ article.author }}</li>

@@ -1,4 +1,6 @@
-from django.db.models import F, Count
+from django.db.models import (
+    Q, F, Count, Case, When, Value, IntegerField
+)
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 from django.views.generic import (
@@ -7,12 +9,11 @@ from django.views.generic import (
     View,
 )
 
-from taggit.models import Tag
-
 from .mixins import ArticleQuerysetMixin
 from .models import (
     Article,
     Category,
+    ArticleTag,
 )
 
 
@@ -74,15 +75,24 @@ class TagsCategoriesView(View):
     template_name = 'articles/tags_categories_list.html'
 
     def get(self, request, *args, **kwargs):
-
-        # TODO: Add counting only public articles
-
         categories = Category.objects.annotate(
-            article_count=Count('articles')
+            article_count=Count(Case(
+                When(
+                    Q(articles__is_public=True),
+                    then=Value(1)
+                ),
+                output_field=IntegerField(),
+            ))
         ).order_by('name')
 
-        tags = Tag.objects.annotate(
-            article_count=Count('taggit_taggeditem_items')
+        tags = ArticleTag.objects.annotate(
+            article_count=Count(Case(
+                When(
+                    Q(tag_items__content_object__is_public=True),
+                    then=Value(1)
+                ),
+                output_field=IntegerField(),
+            ))
         ).order_by('name')
 
         return render(

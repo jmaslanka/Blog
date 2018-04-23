@@ -7,7 +7,7 @@
     {% if categories %}
       <ul>
         {% for category in categories %}
-          <li><a href="{% url 'article:by_category' slug=category.slug %}">
+          <li><a href="{{ category.get_absolute_url }}">
             {{ category.name }} ({{ category.article_count }})
           </a></li>   
         {% endfor %}
