@@ -27,11 +27,14 @@ class ArticleDetailView(ArticleQuerysetMixin, DetailView):
     template_name = 'articles/details.html'
     context_object_name = 'article'
 
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('similar')
+
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
 
         Article.objects.filter(
-            id=self.object.id
+            id=self.object.id,
         ).update(views_count=F('views_count') + 1)
 
         return response

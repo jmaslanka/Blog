@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .forms import ArticleAdminForm
 from .models import (
     Article,
     Category,
@@ -7,6 +8,8 @@ from .models import (
 
 
 class ArticleAdmin(admin.ModelAdmin):
+    form = ArticleAdminForm
+
     list_display = (
         'title',
         'publication_date',
@@ -27,6 +30,7 @@ class ArticleAdmin(admin.ModelAdmin):
     )
     raw_id_fields = (
         'author',
+        'similar',
     )
     prepopulated_fields = {
         'slug': ('title',)
@@ -59,6 +63,7 @@ class ArticleAdmin(admin.ModelAdmin):
                 'description',
                 'content',
                 'tags',
+                'similar',
             )
         }),
         ('Informations', {
@@ -73,7 +78,7 @@ class ArticleAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return super().get_queryset(request) \
             .select_related('author', 'category') \
-            .prefetch_related('tags')
+            .prefetch_related('tags', 'similar')
 
 
 admin.site.register(Article, ArticleAdmin)

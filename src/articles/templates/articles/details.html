@@ -45,11 +45,12 @@
     {% endwith %}
 
     <ul class="post-nav group">
-      <li class="prev"><a rel="prev" href="#"><strong>Previous Article</strong> Duis Sed Odio Sit Amet Nibh Vulputate</a></li>
-      <li class="next"><a rel="next" href="#"><strong>Next Article</strong> Morbi Elit Consequat Ipsum</a></li>
+      {% for article in argicle.similar.all %} 
+        {% comment %} put something there {% endcomment %}
+      {% endfor %}
     </ul>
 
   </article>
   
   <div class="fb-comments" data-href="http://localhost:8000/" data-width="666" data-numposts="5"></div>
-{% endblock %}
+{% endblock content %}

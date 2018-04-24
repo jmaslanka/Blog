@@ -16,8 +16,7 @@ class Category(models.Model):
     name = models.CharField(
         _('name'),
         max_length=32,
-        unique=True,
-    )
+        unique=True)
 
     class Meta:
         verbose_name = 'category'
@@ -44,12 +43,11 @@ class ArticleTag(TagBase):
 class TaggedArticle(ItemBase):
     tag = models.ForeignKey(
         ArticleTag,
-        related_name='tag_items',
-    )
+        related_name='tag_items')
+
     content_object = models.ForeignKey(
         'Article',
-        related_name='tag_items',
-    )
+        related_name='tag_items')
 
     @classmethod
     def tags_for(cls, model, instance=None, **extra_filters):
@@ -76,59 +74,61 @@ class PublishedArticleManager(models.Manager):
 class Article(models.Model):
     title = models.CharField(
         _('title'),
-        max_length=224,
-    )
+        max_length=224)
+
     slug = models.SlugField(
         _('slug'),
-        max_length=255,
-    )
+        max_length=255)
+
     author = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
         verbose_name=_('author'),
-        related_name='articles',
-    )
+        related_name='articles')
+
     is_public = models.BooleanField(
         _('is public'),
-        default=False,
-    )
+        default=False)
+
     publication_date = models.DateTimeField(
         _('publication date'),
         blank=True,
-        null=True,
-    )
+        null=True)
+
     category = models.ForeignKey(
         Category,
         verbose_name=_('category'),
-        related_name='articles',
-    )
+        related_name='articles')
+
+    similar = models.ManyToManyField(
+        'self',
+        blank=True)
 
     image = StdImageField(
         upload_to=UploadToUUID(path='articles'),
         variations={
             'cover': (742, 422),
         },
-        blank=True,
-    )
+        blank=True)
+
     description = models.TextField(
         _('description'),
-        max_length=255,
-    )
+        max_length=255)
+
     content = RichTextUploadingField()
 
     views_count = models.PositiveSmallIntegerField(
         _('views count'),
         default=0,
-        editable=True,
-    )
+        editable=True,)
+
     created = models.DateTimeField(
         _('created'),
-        auto_now_add=True,
-    )
+        auto_now_add=True)
+
     modified = models.DateTimeField(
         _('modified'),
-        auto_now=True,
-    )
+        auto_now=True)
 
     objects = models.Manager()
     tags = TaggableManager(through=TaggedArticle)
